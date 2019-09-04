@@ -28,7 +28,6 @@
             const aeris = new AerisWeather('wgE96YE3scTQLKjnqiMsv', '6E9YI5H9qCO9m44qoEUccvL7UZVSrGVG3gbO7rGW');
             const config = {
                 map: {
-
                     zoom: 4,
                     timeline: {
                         from: -24 * 3600,
@@ -41,27 +40,58 @@
                     layers: {
                         buttons: [
                             {
-                                value: "fhumidity,humidity",
-                                title:"humidity",
-                                options:{
-                                    style:{
-                                        opacity:.2
-                                    }
-                                }
+                                value: "fqpf-1h",
+                                title: "without opacity settings",
                             },
                             {
-                                    title: "Precipitation",
+                                value: "fqpf-1h:50",
+                                title: "never works",
+                            },
+                            {
+                                value: "fqpf-1h",
+                                title: "WorksIn 1.2.2",
+                                options: {
+                                    style: {
+                                        opacity: .5
+                                    }
+                                }
+                            }, 
+                            {
+                                title: "KindOfWorksIn 1.2.2",
+                                options:{
+                                    style:{
+                                        opacity:.5
+                                    }
+                                },
                                 segments: [
                                     {
-                                        value: "fhumidity,humidity",
-                                        title: "humidity",
+                                        value: "fqpf-1h",
+                                        title: "precipa",
                                     },
                                     {
-                                        value: "fhumidity,humidity",
-                                        title: "humidity",
+                                        value: "fqpf-accum",
+                                        title: "precipb",
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                title: "KindOfWorksIn 1.2.2",
+                                options: {
+                                    style: {
+                                        opacity: .5
+                                    }
+                                },
+                                segments: [
+                                    {
+                                        value: "fqpf-1h",
+                                        title: "precipa",
+                                    },
+                                    {
+                                        value: "fqpf-accum",
+                                        title: "precipb",
+                                    }
+                                ]
+                            },
                         ]
                     }
                 }
