@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aeris JavaScript SDK - Basic Interactive Map App</title>
+    <script defer src="https://cdn.aerisapi.com/sdk/js/1.2.2/aerisweather.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.aerisapi.com/sdk/js/1.2.2/aerisweather.css">
+
+    <style>
+        #app {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            height: 800px;
+            margin: 30px auto;
+            width: 1200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        window.onload = () => {
+
+            const aeris = new AerisWeather('wgE96YE3scTQLKjnqiMsv', '6E9YI5H9qCO9m44qoEUccvL7UZVSrGVG3gbO7rGW');
+            const config = {
+                map: {
+
+                    zoom: 4,
+                    timeline: {
+                        from: -24 * 3600,
+                        to: 36 * 3600,
+                        alwaysShowPast: false,
+                        alwaysShowFuture: true
+                    }
+                },
+                panels: {
+                    layers: {
+                        buttons: [
+                            {
+                                value: "fhumidity,humidity",
+                                title:"humidity",
+                                options:{
+                                    style:{
+                                        opacity:.2
+                                    }
+                                }
+                            },
+                            {
+                                    title: "Precipitation",
+                                segments: [
+                                    {
+                                        value: "fhumidity,humidity",
+                                        title: "humidity",
+                                    },
+                                    {
+                                        value: "fhumidity,humidity",
+                                        title: "humidity",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+            console.log("AERIS APPS",{ config});
+            aeris.apps().then((apps) => {
+                const app = new apps.InteractiveMapApp('#app',config );
+                console.log("AERIS APPS 2");
+                app.on("ready",()=>console.log("ready"));
+            });
+        }
+            
+    </script>
+
+</body>
+
+</html>
