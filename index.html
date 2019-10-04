@@ -46,12 +46,16 @@
                             {
                                 title:"storms",
                                 segments:[
-                                    overlay(["stormreports"],{displayName:"All"}),  
-                                    overlay(["stormreports-lightning"],{displayName:"Lightning"}),  
-                                    overlay(["stormreports-snow"],{displayName:"Snow"}), 
-                                    overlay(["stormreports-hail"],{displayName:"Hail"}),  
-                                    overlay(["stormreports-ice"],{displayName:"Ice"}),  
-                                    overlay(["stormreports-rain"],{displayName:"Rain"}),  
+                                    {
+                                        id: "all",
+                                        value: "stormreports",
+                                        title: "stormreports"
+                                    },
+                                    {
+                                        id: "Lightning",
+                                        value: "stormreports-lightning",
+                                        title: "Lightning"
+                                    }
                                 ]
                             }
                         ]
