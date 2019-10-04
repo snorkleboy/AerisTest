@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Aeris JavaScript SDK - Basic Interactive Map App</title>
-    <script defer src="https://cdn.aerisapi.com/sdk/js/1.2.4/aerisweather.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.aerisapi.com/sdk/js/1.2.4/aerisweather.css">
+    <script defer src="https://cdn.aerisapi.com/sdk/js/1.2.6/aerisweather.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.aerisapi.com/sdk/js/1.2.6/aerisweather.css">
 
     <style>
         #app {
@@ -24,7 +24,11 @@
 
     <script>
         window.onload = () => {
-
+            const overlay = (ObservedForecastLayers, { displayName }) => ({
+                id: displayName,
+                value: ObservedForecastLayers.toString(),
+                title: (displayName || ObservedForecastLayers[0]).split("-").join(" "),
+            });
             const aeris = new AerisWeather('wgE96YE3scTQLKjnqiMsv', '6E9YI5H9qCO9m44qoEUccvL7UZVSrGVG3gbO7rGW');
             const config = {
                 map: {
@@ -40,65 +44,22 @@
                     layers: {
                         buttons: [
                             {
-                                value: "fqpf-1h",
-                                title: "without opacity settings",
-                            },
-                            {
-                                value: "fqpf-1h:50",
-                                title: "never works",
-                            }, 
-                            {
-                                value: "fqsf-1h:50",
-                                title: "also never works",
-                            }, 
-                            {
-                                value: "fqpf-1h",
-                                title: "WorksIn 1.2.2",
-                                options: {
-                                    style: {
-                                        opacity: .5
-                                    }
-                                }
-                            }, 
-                            {
-                                title: "KindOfWorksIn 1.2.2",
-                                options:{
-                                    style:{
-                                        opacity:.5
-                                    }
-                                },
-                                segments: [
-                                    {
-                                        value: "fqpf-1h",
-                                        title: "works",
-                                    },
-                                    {
-                                        value: "fqpf-accum",
-                                        title: "breaks it",
-                                    }
+                                title:"storms",
+                                segments:[
+                                    overlay(["stormreports"],{displayName:"All"}),  
+                                    overlay(["stormreports-lightning"],{displayName:"Lightning"}),  
+                                    overlay(["stormreports-snow"],{displayName:"Snow"}), 
+                                    overlay(["stormreports-hail"],{displayName:"Hail"}),  
+                                    overlay(["stormreports-ice"],{displayName:"Ice"}),  
+                                    overlay(["stormreports-rain"],{displayName:"Rain"}),  
                                 ]
-                            },
-                            {
-                                title: "-1h:opacity not valid",
-                                segments: [
-                                    {
-                                        value: "fqpf-1h:25",
-                                        title: "doesnt work",
-                                    },
-                                    {
-                                        value: "fqpf-accum:25",
-                                        title: "works",
-                                    }
-                                ]
-                            },
+                            }
                         ]
                     }
                 }
             }
-            console.log("AERIS APPS",{ config});
             aeris.apps().then((apps) => {
                 const app = new apps.InteractiveMapApp('#app',config );
-                console.log("AERIS APPS 2");
                 app.on("ready",()=>console.log("ready"));
             });
         }
