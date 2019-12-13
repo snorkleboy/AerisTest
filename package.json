@@ -11,7 +11,7 @@
   "dependencies": {
     "@aerisweather/javascript-sdk": "^1.2.4",
     "install": "^0.13.0",
-    "npm": "^6.10.3"
+    "npm": "^6.13.4"
   },
   "devDependencies": {
     "webpack": "^4.39.2",
